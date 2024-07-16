@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
-import { OrderService, ProductService } from './shopify/services';
+import {
+  OrderService as ShopifyOrderService,
+  ProductService as ShopifyProductService,
+} from './shopify/services';
 
 @Module({
   imports: [],
   controllers: [],
   providers: [
-    OrderService,
-    ProductService,
+    ShopifyOrderService,
+    ShopifyProductService,
   ],
   exports: [],
 })

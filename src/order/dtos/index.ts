@@ -1,2 +1,3 @@
-export * from './order.request.dto';
-export * from './order.response.dto';
+export * from '../../_shared/platforms/dtos/order.response.dto';
+export * from './order-num-id.request.dto';
+export * from './order-str-id.request.dto';

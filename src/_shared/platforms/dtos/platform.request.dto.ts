@@ -1,11 +1,9 @@
 import { IsEnum } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { PlatformNameEnum } from '../../_common/types';
+import { PlatformNameEnum } from '../types';
 
-export class OrderStrIdRequestDto {
+export class PlatformRequestDto {
   @IsEnum(PlatformNameEnum)
   @ApiProperty({ type: String, description: 'Platform name. Allowed values ("shopify")', required: true })
   platform: PlatformNameEnum;
-
-  id:string;
 }

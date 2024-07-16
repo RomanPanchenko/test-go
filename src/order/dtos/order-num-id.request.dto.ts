@@ -1,4 +1,4 @@
-import { IsEnum, IsPositive, Max } from 'class-validator';
+import { IsEnum, IsInt, IsPositive, Max } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { PlatformNameEnum } from '../../_common/types';
 import { OrderRequest } from '../types';
@@ -16,7 +16,8 @@ export class OrderNumIdRequestDto {
   platform: PlatformNameEnum;
 
   @IsPositive()
-  @Max(9999)
+  @IsInt()
+  @Max(Number.MAX_SAFE_INTEGER)
   @ApiProperty({ type: Number, description: 'Order id' })
   id: number;
 }

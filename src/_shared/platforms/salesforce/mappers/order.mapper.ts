@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { OrderResponseDto } from '../../../../order/dtos';
+import { IOrderMapperService } from '../../types';
+import { OrderResponseDto } from '../../dtos';
 
 @Injectable()
-export class OrderMapper {
-  async toDto():Promise<OrderResponseDto> {
-
+export class OrderMapper implements IOrderMapperService {
+  async toDto(): Promise<OrderResponseDto> {
+    return {} as OrderResponseDto;
   }
 }

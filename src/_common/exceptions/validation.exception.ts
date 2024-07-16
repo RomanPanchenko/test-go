@@ -1,13 +1,9 @@
-import { HttpStatus, ValidationError } from '@nestjs/common';
+import { HttpException, HttpStatus, ValidationError } from '@nestjs/common';
 
-export class ValidationException {
-  public statusCode: number;
-  public message: string;
-
+export class ValidationException extends HttpException {
   constructor(errors: ValidationError[]) {
-    this.statusCode = HttpStatus.BAD_REQUEST;
+    const messages: string[] = ['Validation Error:'];
     if (Array.isArray(errors) && errors.length) {
-      const messages: string[] = ['Validation Error:'];
       errors.forEach(error => {
         if (error.constraints) {
           Object.keys(error.constraints).forEach(key => {
@@ -15,8 +11,8 @@ export class ValidationException {
           });
         }
       });
-
-      this.message = messages.join('\n');
     }
+
+    super(messages.join('\n'), HttpStatus.BAD_REQUEST);
   }
 }
