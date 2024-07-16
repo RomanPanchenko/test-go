@@ -1,11 +1,20 @@
 import { Module } from '@nestjs/common';
 import { OrderController, OrdersController } from './controllers';
 import { OrderProvider } from './providers';
+import { PlatformsModule } from '../_shared/platforms/platforms.module';
 
 @Module({
-  imports: [],
-  controllers: [OrderController, OrdersController],
+  imports: [
+    PlatformsModule,
+  ],
+  controllers: [
+    OrderController,
+    OrdersController,
+  ],
   providers: [
+    OrderProvider,
+  ],
+  exports: [
     OrderProvider,
   ],
 })

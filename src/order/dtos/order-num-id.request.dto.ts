@@ -1,7 +1,7 @@
 import { IsEnum, IsInt, IsPositive, Max } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { PlatformNameEnum } from '../../_common/types';
 import { OrderRequest } from '../types';
+import { PlatformNameEnum } from '../../_shared/platforms/types';
 
 export class OrderNumIdRequestDto {
   constructor(dto: OrderRequest) {

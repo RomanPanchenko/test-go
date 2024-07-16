@@ -6,10 +6,10 @@ module.exports = {
   api_global_prefix: '/',
   platforms: {
     shopify: {
+      api_version: '2024-04',
       store: '',
       api_key: '',
-      password: '',
-      api_version: '',
+      access_token: '',
     },
     salesforce: {},
   },

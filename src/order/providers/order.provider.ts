@@ -1,18 +1,35 @@
-import { Injectable } from '@nestjs/common';
-import { PlatformNameEnum } from '../../_common/types';
-import { OrderResponseDto } from '../dtos';
+import { Injectable, Logger } from '@nestjs/common';
+import { OrderRequest } from '../types';
+import { PlatformOrderProvider } from '../../_shared/platforms/providers';
+import { PlatformNameEnum } from '../../_shared/platforms/types';
+import { OrderResponseDto, OrdersResponseDto } from '../../_shared/platforms/dtos';
 
 @Injectable()
 export class OrderProvider {
-  constructor() {}
+  constructor(
+    private readonly platformOrderProvider: PlatformOrderProvider,
+  ) {}
 
-  async getOrderById(platformName: PlatformNameEnum, orderId: number | string): Promise<OrderResponseDto> {
+  async getOrderById(orderRequestDto: OrderRequest): Promise<OrderResponseDto> {
+    let order: OrderResponseDto;
+    try {
+      order = await this.platformOrderProvider.getOrderById(orderRequestDto);
+    } catch (e) {
+      Logger.error(e);
+      throw e;
+    }
 
-    return {} as OrderResponseDto;
+    return order;
   }
 
-  async getOrders(platformName: PlatformNameEnum): Promise<OrderResponseDto[]> {
+  async getOrders(platform: string): Promise<OrdersResponseDto> {
+    let orders: OrdersResponseDto;
+    try {
+      orders = await this.platformOrderProvider.getOrders(platform as PlatformNameEnum);
+    } catch (e) {
+      Logger.error(e);
+    }
 
-    return [] as OrderResponseDto[];
+    return orders;
   }
 }

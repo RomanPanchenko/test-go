@@ -28,8 +28,15 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const exceptionHandler = getExceptionHandler(exception);
 
+    let statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR;
+    if (exception instanceof HttpException) {
+      statusCode = exception.getStatus();
+    } else if ((exception as any)?.response?.status) {
+      statusCode = (exception as any)?.response?.status;
+    }
+
     const responseError: IErrorResponse = {
-      statusCode: exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR,
+      statusCode,
       message: exception.message,
     };
 

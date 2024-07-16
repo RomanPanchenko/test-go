@@ -1,3 +1,3 @@
 export interface IProductService {
-  create(): Promise<any>;
+  create(platformSpecificRequestObject: any): Promise<any>;
 }

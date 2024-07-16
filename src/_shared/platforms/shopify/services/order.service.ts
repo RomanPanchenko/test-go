@@ -1,30 +1,36 @@
+import axios from 'axios';
 import { Injectable } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
-import urlJoin from 'url-join';
+import { urlJoin } from 'url-join-ts';
 import { SHOPIFY } from './constants';
 import { IOrderService } from '../../types';
 
 @Injectable()
 export class OrderService implements IOrderService {
-  constructor(
-    private readonly httpService: HttpService,
-  ) {}
+  constructor() {}
 
   async getOrderById(id: number): Promise<any> {
     const url = urlJoin(SHOPIFY.URL, 'orders', `${id}.json`);
 
-    const response = await this.httpService.get(url, {
+    const response = await axios.get(url, {
       headers: {
-        'X-Shopify-Access-Token': SHOPIFY.API_KEY,
+        'Content-Type': 'application/json',
+        'X-Shopify-Access-Token': SHOPIFY.ACCESS_TOKEN,
       },
     });
 
-    console.log(response);
-
-    return response; //.data;
+    return response.data;
   }
 
   async getOrders(): Promise<any> {
+    const url = urlJoin(SHOPIFY.URL, 'orders.json', '?status=any');
 
+    const response = await axios.get(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Access-Token': SHOPIFY.ACCESS_TOKEN,
+      },
+    });
+
+    return response.data;
   }
 }

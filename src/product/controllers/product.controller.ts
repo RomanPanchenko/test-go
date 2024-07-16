@@ -1,11 +1,10 @@
 import { Body, Controller, HttpCode, Param, Post } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBody, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
-import { CreateProductRequestDto, ProductResponseDto } from '../dtos';
 import { ProductProvider } from '../providers';
-import { PlatformRequestDto } from '../../_shared/platforms/dtos/platform.request.dto';
+import { CreateProductRequestDto, PlatformRequestDto, ProductResponseDto } from '../../_shared/platforms/dtos';
 
-@Controller('order')
-@ApiTags('order')
+@Controller('product')
+@ApiTags('product')
 export class ProductController {
   constructor(
     private readonly productProvider: ProductProvider,

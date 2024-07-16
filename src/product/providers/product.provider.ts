@@ -1,13 +1,31 @@
-import { Injectable } from '@nestjs/common';
-import { PlatformNameEnum } from '../../_common/types';
-import { CreateProductRequestDto, ProductResponseDto } from '../dtos';
+import stringify from 'fast-safe-stringify';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { PlatformNameEnum } from '../../_shared/platforms/types';
+import { CreateProductRequestDto, OrderResponseDto, ProductResponseDto } from '../../_shared/platforms/dtos';
+import { PlatformProductProvider } from '../../_shared/platforms/providers';
 
 @Injectable()
 export class ProductProvider {
-  constructor() {}
+  constructor(
+    private readonly platformProductProvider: PlatformProductProvider,
+  ) {}
 
   async create(platformName: PlatformNameEnum, data: CreateProductRequestDto): Promise<ProductResponseDto> {
+    let product: OrderResponseDto;
+    try {
+      product = await this.platformProductProvider.create(platformName, data);
+    } catch (e) {
+      let message = 'Error creating product: ';
+      if (e.response?.data) {
+        message += stringify(e.response.data);
+      } else {
+        message += e.message;
+      }
 
-    return {} as ProductResponseDto;
+      Logger.error(message);
+      throw new HttpException(message, e.response?.status);
+    }
+
+    return product;
   }
 }

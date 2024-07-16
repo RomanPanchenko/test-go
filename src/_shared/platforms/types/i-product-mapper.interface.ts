@@ -1,3 +1,6 @@
+import { CreateProductRequestDto, ProductResponseDto } from '../dtos';
+
 export interface IProductMapper {
-  toDto(): Promise<any>;
+  toResponseDto(productResponse: any): Promise<ProductResponseDto>;
+  toPlatformSpecificRequestObject(dto: CreateProductRequestDto): Promise<any>;
 }

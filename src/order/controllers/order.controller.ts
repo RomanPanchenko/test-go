@@ -1,9 +1,8 @@
 import { Controller, Get, HttpCode, Param, UsePipes } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
-import { OrderResponseDto, OrderStrIdRequestDto } from '../dtos';
+import { OrderNumIdRequestDto, OrderResponseDto, OrderStrIdRequestDto } from '../dtos';
 import { OrderProvider } from '../providers';
-import { OrderValidationPipe } from '../pipes';
-import { OrderNumIdRequestDto } from '../dtos/order-num-id.request.dto';
+import { OrderIdValidationPipe, PlatformValidationPipe } from '../pipes';
 
 @Controller('order')
 @ApiTags('order')
@@ -18,10 +17,10 @@ export class OrderController {
   @ApiBadRequestResponse({ description: 'Error getting order data.' })
   @ApiParam({ name: 'platform', type: String, description: 'Platform name' })
   @ApiParam({ name: 'id', type: String, description: 'Order id' })
-  @UsePipes(OrderValidationPipe)
+  @UsePipes(OrderIdValidationPipe, PlatformValidationPipe)
   async getOrderById(
     @Param() orderRequestDto: OrderNumIdRequestDto | OrderStrIdRequestDto,
   ): Promise<OrderResponseDto> {
-    return await this.orderProvider.getOrderById(orderRequestDto.platform, orderRequestDto.id);
+    return await this.orderProvider.getOrderById(orderRequestDto);
   }
 }
