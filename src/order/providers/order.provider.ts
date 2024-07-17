@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { OrderRequest } from '../types';
 import { PlatformOrderProvider } from '../../_shared/platforms/providers';
 import { PlatformNameEnum } from '../../_shared/platforms/types';
@@ -11,24 +11,13 @@ export class OrderProvider {
   ) {}
 
   async getOrderById(orderRequestDto: OrderRequest): Promise<OrderResponseDto> {
-    let order: OrderResponseDto;
-    try {
-      order = await this.platformOrderProvider.getOrderById(orderRequestDto);
-    } catch (e) {
-      Logger.error(e);
-      throw e;
-    }
+    const order = await this.platformOrderProvider.getOrderById(orderRequestDto);
 
     return order;
   }
 
   async getOrders(platform: string): Promise<OrdersResponseDto> {
-    let orders: OrdersResponseDto;
-    try {
-      orders = await this.platformOrderProvider.getOrders(platform as PlatformNameEnum);
-    } catch (e) {
-      Logger.error(e);
-    }
+    const orders = await this.platformOrderProvider.getOrders(platform as PlatformNameEnum);
 
     return orders;
   }

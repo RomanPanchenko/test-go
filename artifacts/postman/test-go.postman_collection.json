@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "16ff8af3-ba4f-4fee-a8a5-3e252acd2b05",
+		"name": "test-go",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1541482"
+	},
+	"item": [
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": ":platform/:id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/orders/shopify/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"shopify",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "shopify",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"title\": \"Dumbbells\",\r\n\t\"description\": \"30kg dumbbells best quality black\",\r\n\t\"vendor\": \"Super sport equipment Inc\",\r\n\t\"type\": \"dumbbell\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/product/shopify",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"product",
+								"shopify"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
