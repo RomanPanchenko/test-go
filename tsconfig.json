@@ -1,5 +1,5 @@
 {
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "./test/**/*", "./tmp/**/*.ts"],
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,

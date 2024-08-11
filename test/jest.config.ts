@@ -2,7 +2,7 @@ import { pathsToModuleNameMapper } from 'ts-jest';
 
 import { Config } from '@jest/types';
 
-const { compilerOptions } = require('./tsconfig');
+const { compilerOptions } = require('./../tsconfig');
 
 process.env.TZ = 'UTC';
 
@@ -13,10 +13,10 @@ const jestConfig: Config.InitialOptions = {
     'ts',
   ],
   moduleNameMapper: compilerOptions.paths ? pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/..' } ) : undefined,
-  rootDir: 'src',
+  rootDir: '.',
   testRegex: '.*\\.spec\\.ts$',
   transform: {
-    '\\.ts?$': ['ts-jest', { tsconfig: 'tsconfig.jest.json' }],
+    '\\.ts?$': ['ts-jest', { tsconfig: './../tsconfig.jest.json' }],
   },
   preset: 'ts-jest',
   testEnvironment: 'node',
